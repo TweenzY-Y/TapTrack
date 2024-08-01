@@ -45,7 +45,7 @@
         <li><a href="#configuration-inside-the-application">Configuration inside the application</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li><a href="#shortcut">Shortcut</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
   </ol>
 </details>
