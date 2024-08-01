@@ -122,7 +122,7 @@ See the [open issues](https://github.com/TweenzY-Y/TapTrack/issues) for a full l
 [contributors-url]: https://github.com/TweenzY-Y/TapTrack/graphs/contributors?style=for-the-badge
 [forks-shield]: https://img.shields.io/github/forks/TweenzY-Y/TapTrack?style=for-the-badge
 [forks-url]: https://github.com/TweenzY-Y/TapTrack/network/members?style=for-the-badge
-[stars-shield]: https://img.shields.io/github/stars/TweenzY/TapTrack?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/TweenzY-Y/TapTrack?style=for-the-badge
 [stars-url]: https://github.com/TweenzY-Y/TapTrack/stargazers
 [issues-shield]: https://img.shields.io/github/issues/TweenzY/TapTrack?style=for-the-badge
 [issues-url]: https://github.com/TweenzY-Y/TapTrack/issues
