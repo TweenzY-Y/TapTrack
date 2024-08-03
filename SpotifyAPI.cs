@@ -12,8 +12,8 @@ namespace TapTrack
 {
     internal class SpotifyAPI
     {
-        public static string clientId = "";
-        public static string clientSecret = "";
+        public static string clientId;
+        public static string clientSecret;
         public static string accessToken;
         public static string authCode;
         public static string state;

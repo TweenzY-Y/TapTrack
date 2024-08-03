@@ -10,82 +10,62 @@ namespace TapTrack
         public TapTrack()
         {
             InitializeComponent();
-            GlobalInputHandler._hookID = GlobalInputHandler.SetHook();
-            //resetAppConfig();
-            setAppViewTo(appSettingsView);
-            if (Properties.Settings.Default.accessToken != "")
-            {
-                SpotifyAPI.accessToken = Properties.Settings.Default.accessToken;
-            }
-            else if (Properties.Settings.Default.clientId != "" && Properties.Settings.Default.clientSecret != "")
-            { 
-                SpotifyAPI.clientId = Properties.Settings.Default.clientId;
-                SpotifyAPI.clientSecret = Properties.Settings.Default.clientSecret;
-                clientIdTb.Text = SpotifyAPI.clientId;
-                clientSecretTb.Text = SpotifyAPI.clientSecret;
-                setAppViewTo(loginView);
-            }
         }
         private void loginBtn_Click(object sender, EventArgs e)
         {
             SpotifyAPI.MoveToAuthorizePage();
-            setAppViewTo(authView);
+            Program.SetViewTo(this, authView);
         }
         private async void submitUrlBtn_Click(object sender, EventArgs e)
-        {
-            var uri = new Uri(urlTb.Text);
-            var query = uri.Query;
-            var queryDictionary = HttpUtility.ParseQueryString(query);
-            var code = queryDictionary["code"];
-            var returnedState = queryDictionary["state"];
-            if (returnedState != SpotifyAPI.state)
-            {
-                throw new InvalidOperationException("State mismatch");
-            }    
-            SpotifyAPI.authCode = code;
+        {    
+            SpotifyAPI.authCode = Utils.ExtractAuthCodeFrom(urlTb.Text);
             SpotifyAPI.accessToken = await SpotifyAPI.GetAccessTokenAsync(SpotifyAPI.authCode);
-            Properties.Settings.Default.accessToken = SpotifyAPI.accessToken;
-            Properties.Settings.Default.Save();
-            setAppViewTo(loggedUserView);
+            Program.SaveSettings();
+            Program.SetViewTo(this, loggedUserView);
         }
 
         private void submitAppSettingsBtn_Click(object sender, EventArgs e)
         {
+            if (clientIdTb.Text.Length != 32 || clientSecretTb.Text.Length != 32)
+            {
+                MessageBox.Show("Client ID and Client secret must be 32 characters long. Try again.");
+                return;
+            }
             SpotifyAPI.clientId = clientIdTb.Text;
-            Properties.Settings.Default.clientId = SpotifyAPI.clientId;
-
             SpotifyAPI.clientSecret = clientSecretTb.Text;
-            Properties.Settings.Default.clientSecret = SpotifyAPI.clientSecret;
-            Properties.Settings.Default.Save();
-            setAppViewTo(loginView);
+            Program.SetViewTo(this, loginView);
         }
 
         private void TapTrack_FormClosing(object sender, FormClosingEventArgs e)
         {
             GlobalInputHandler.UnhookWindowsHookEx(GlobalInputHandler._hookID);
         }
-        private void setAppViewTo(System.Windows.Forms.Panel view)
-        {
-            foreach (System.Windows.Forms.Panel panel in this.Controls.OfType<System.Windows.Forms.Panel>())
-            {
-                panel.Visible = false;
-                if (panel == view)
-                {
-                    panel.Visible = true;
-                }
-            }
-        }
 
-        private void resetAppConfig()
-        {
-            Properties.Settings.Default.accessToken = "";
-            Properties.Settings.Default.clientSecret = "";
-            Properties.Settings.Default.clientId = "";
-            Properties.Settings.Default.Save();
-        }
         private void appSettingsBtn_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            setAppViewTo(appSettingsView);
+            Program.SetViewTo(this,appSettingsView);
+        }
+
+        private void TapTrack_Load(object sender, EventArgs e)
+        {
+            /* TESTING PURPOSE              
+            Program.ResetSettings();
+            */
+            GlobalInputHandler._hookID = GlobalInputHandler.SetHook();
+            if (Properties.Settings.Default.accessToken != "")
+            {
+                SpotifyAPI.accessToken = Properties.Settings.Default.accessToken;
+                Program.SetViewTo(this, loggedUserView);
+                return;
+            }
+            else if (Properties.Settings.Default.clientId != "" && Properties.Settings.Default.clientSecret != "")
+            {
+                SpotifyAPI.clientId = Properties.Settings.Default.clientId;
+                SpotifyAPI.clientSecret = Properties.Settings.Default.clientSecret;
+                Program.SetViewTo(this, loginView);
+                return;
+            }
+            Program.SetViewTo(this, appSettingsView);
         }
     }
 }

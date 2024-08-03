@@ -31,6 +31,7 @@ namespace TapTrack
         {
             this.loginBtn = new System.Windows.Forms.Button();
             this.loginView = new System.Windows.Forms.Panel();
+            this.appSettingsBtn1 = new System.Windows.Forms.LinkLabel();
             this.authView = new System.Windows.Forms.Panel();
             this.appSettingsBtn = new System.Windows.Forms.LinkLabel();
             this.submitUrlBtn = new System.Windows.Forms.Button();
@@ -42,10 +43,9 @@ namespace TapTrack
             this.clientIdLabel = new System.Windows.Forms.Label();
             this.clientSecretTb = new System.Windows.Forms.TextBox();
             this.clientIdTb = new System.Windows.Forms.TextBox();
-            this.appSettingsBtn1 = new System.Windows.Forms.LinkLabel();
             this.loggedUserView = new System.Windows.Forms.Panel();
-            this.runOnStartupCheck = new System.Windows.Forms.CheckBox();
             this.hideAppCheck = new System.Windows.Forms.CheckBox();
+            this.runOnStartupCheck = new System.Windows.Forms.CheckBox();
             this.loginView.SuspendLayout();
             this.authView.SuspendLayout();
             this.appSettingsView.SuspendLayout();
@@ -74,6 +74,19 @@ namespace TapTrack
             this.loginView.Name = "loginView";
             this.loginView.Size = new System.Drawing.Size(251, 152);
             this.loginView.TabIndex = 1;
+            // 
+            // appSettingsBtn1
+            // 
+            this.appSettingsBtn1.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(179)))), ((int)(((byte)(179)))));
+            this.appSettingsBtn1.AutoSize = true;
+            this.appSettingsBtn1.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(185)))), ((int)(((byte)(84)))));
+            this.appSettingsBtn1.Location = new System.Drawing.Point(163, 3);
+            this.appSettingsBtn1.Name = "appSettingsBtn1";
+            this.appSettingsBtn1.Size = new System.Drawing.Size(85, 13);
+            this.appSettingsBtn1.TabIndex = 6;
+            this.appSettingsBtn1.TabStop = true;
+            this.appSettingsBtn1.Text = "Edit app settings";
+            this.appSettingsBtn1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.appSettingsBtn_LinkClicked);
             // 
             // authView
             // 
@@ -190,19 +203,6 @@ namespace TapTrack
             this.clientIdTb.Size = new System.Drawing.Size(227, 20);
             this.clientIdTb.TabIndex = 0;
             // 
-            // appSettingsBtn1
-            // 
-            this.appSettingsBtn1.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(179)))), ((int)(((byte)(179)))));
-            this.appSettingsBtn1.AutoSize = true;
-            this.appSettingsBtn1.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(185)))), ((int)(((byte)(84)))));
-            this.appSettingsBtn1.Location = new System.Drawing.Point(163, 3);
-            this.appSettingsBtn1.Name = "appSettingsBtn1";
-            this.appSettingsBtn1.Size = new System.Drawing.Size(85, 13);
-            this.appSettingsBtn1.TabIndex = 6;
-            this.appSettingsBtn1.TabStop = true;
-            this.appSettingsBtn1.Text = "Edit app settings";
-            this.appSettingsBtn1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.appSettingsBtn_LinkClicked);
-            // 
             // loggedUserView
             // 
             this.loggedUserView.Controls.Add(this.hideAppCheck);
@@ -211,17 +211,6 @@ namespace TapTrack
             this.loggedUserView.Name = "loggedUserView";
             this.loggedUserView.Size = new System.Drawing.Size(251, 155);
             this.loggedUserView.TabIndex = 6;
-            // 
-            // runOnStartupCheck
-            // 
-            this.runOnStartupCheck.AutoSize = true;
-            this.runOnStartupCheck.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(179)))), ((int)(((byte)(179)))));
-            this.runOnStartupCheck.Location = new System.Drawing.Point(53, 54);
-            this.runOnStartupCheck.Name = "runOnStartupCheck";
-            this.runOnStartupCheck.Size = new System.Drawing.Size(157, 17);
-            this.runOnStartupCheck.TabIndex = 0;
-            this.runOnStartupCheck.Text = "Run on startup (In progress)";
-            this.runOnStartupCheck.UseVisualStyleBackColor = true;
             // 
             // hideAppCheck
             // 
@@ -233,6 +222,17 @@ namespace TapTrack
             this.hideAppCheck.TabIndex = 1;
             this.hideAppCheck.Text = "Hide app (In progress)";
             this.hideAppCheck.UseVisualStyleBackColor = true;
+            // 
+            // runOnStartupCheck
+            // 
+            this.runOnStartupCheck.AutoSize = true;
+            this.runOnStartupCheck.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(179)))), ((int)(((byte)(179)))));
+            this.runOnStartupCheck.Location = new System.Drawing.Point(53, 54);
+            this.runOnStartupCheck.Name = "runOnStartupCheck";
+            this.runOnStartupCheck.Size = new System.Drawing.Size(157, 17);
+            this.runOnStartupCheck.TabIndex = 0;
+            this.runOnStartupCheck.Text = "Run on startup (In progress)";
+            this.runOnStartupCheck.UseVisualStyleBackColor = true;
             // 
             // TapTrack
             // 
@@ -250,6 +250,7 @@ namespace TapTrack
             this.ShowIcon = false;
             this.Text = "TapTrack";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TapTrack_FormClosing);
+            this.Load += new System.EventHandler(this.TapTrack_Load);
             this.loginView.ResumeLayout(false);
             this.loginView.PerformLayout();
             this.authView.ResumeLayout(false);

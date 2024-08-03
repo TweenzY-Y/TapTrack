@@ -263,6 +263,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Utils.cs" />
     <Compile Include="GlobalInputHandler.cs" />
     <Compile Include="SpotifyAPI.cs" />
     <Compile Include="TapTrack.cs">
