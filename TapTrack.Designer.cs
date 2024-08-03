@@ -29,6 +29,7 @@ namespace TapTrack
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TapTrack));
             this.loginBtn = new System.Windows.Forms.Button();
             this.loginView = new System.Windows.Forms.Panel();
             this.appSettingsBtn1 = new System.Windows.Forms.LinkLabel();
@@ -245,9 +246,9 @@ namespace TapTrack
             this.Controls.Add(this.loginView);
             this.Controls.Add(this.appSettingsView);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "TapTrack";
-            this.ShowIcon = false;
             this.Text = "TapTrack";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TapTrack_FormClosing);
             this.Load += new System.EventHandler(this.TapTrack_Load);
