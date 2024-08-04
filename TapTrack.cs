@@ -1,27 +1,27 @@
 ﻿using System;
-using System.Linq;
-using System.Web;
 using System.Windows.Forms;
 
 namespace TapTrack
 {
     public partial class TapTrack : Form
     {
+        public static TapTrack Instance { get; private set; }
         public TapTrack()
         {
             InitializeComponent();
+            GlobalInputHandler._hookID = GlobalInputHandler.SetHook();
+            Instance = this;
         }
         private void loginBtn_Click(object sender, EventArgs e)
         {
             SpotifyAPI.MoveToAuthorizePage();
-            Program.SetViewTo(this, authView);
+            Program.SetViewTo(authView);
         }
         private async void submitUrlBtn_Click(object sender, EventArgs e)
         {    
             SpotifyAPI.authCode = Utils.ExtractAuthCodeFrom(urlTb.Text);
             SpotifyAPI.accessToken = await SpotifyAPI.GetAccessTokenAsync(SpotifyAPI.authCode);
-            Program.SaveSettings();
-            Program.SetViewTo(this, loggedUserView);
+            Program.SetViewTo(loggedUserView);
         }
 
         private void submitAppSettingsBtn_Click(object sender, EventArgs e)
@@ -33,17 +33,18 @@ namespace TapTrack
             }
             SpotifyAPI.clientId = clientIdTb.Text;
             SpotifyAPI.clientSecret = clientSecretTb.Text;
-            Program.SetViewTo(this, loginView);
+            Program.SetViewTo(loginView);
         }
 
         private void TapTrack_FormClosing(object sender, FormClosingEventArgs e)
         {
             GlobalInputHandler.UnhookWindowsHookEx(GlobalInputHandler._hookID);
+            Program.SaveSettings();
         }
 
         private void appSettingsBtn_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Program.SetViewTo(this,appSettingsView);
+            Program.SetViewTo(appSettingsView);
         }
 
         private void TapTrack_Load(object sender, EventArgs e)
@@ -51,21 +52,45 @@ namespace TapTrack
             /* TESTING PURPOSE              
             Program.ResetSettings();
             */
-            GlobalInputHandler._hookID = GlobalInputHandler.SetHook();
+            if (Properties.Settings.Default.state != "")
+            {
+                Program.state = (Program.State)Enum.Parse(typeof(Program.State), Properties.Settings.Default.state);
+            }
+            Program.SetVisibility();
             if (Properties.Settings.Default.accessToken != "")
             {
                 SpotifyAPI.accessToken = Properties.Settings.Default.accessToken;
-                Program.SetViewTo(this, loggedUserView);
+                Program.SetViewTo(loggedUserView);
                 return;
             }
             else if (Properties.Settings.Default.clientId != "" && Properties.Settings.Default.clientSecret != "")
             {
                 SpotifyAPI.clientId = Properties.Settings.Default.clientId;
                 SpotifyAPI.clientSecret = Properties.Settings.Default.clientSecret;
-                Program.SetViewTo(this, loginView);
+                Program.SetViewTo(loginView);
                 return;
             }
-            Program.SetViewTo(this, appSettingsView);
+            Program.SetViewTo(appSettingsView);
+        }
+
+        private void trayBtn_Click(object sender, EventArgs e)
+        {
+            Program.state = Program.State.Tray;
+            Program.SetVisibility();
+        }
+
+        // Tray Menu Items
+
+        // EXIT
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        // OPEN
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.state = Program.State.Normal;
+            Program.SetVisibility();
         }
     }
 }

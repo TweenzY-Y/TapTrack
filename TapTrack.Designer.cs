@@ -29,6 +29,7 @@ namespace TapTrack
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TapTrack));
             this.loginBtn = new System.Windows.Forms.Button();
             this.loginView = new System.Windows.Forms.Panel();
@@ -45,12 +46,17 @@ namespace TapTrack
             this.clientSecretTb = new System.Windows.Forms.TextBox();
             this.clientIdTb = new System.Windows.Forms.TextBox();
             this.loggedUserView = new System.Windows.Forms.Panel();
-            this.hideAppCheck = new System.Windows.Forms.CheckBox();
+            this.trayBtn = new System.Windows.Forms.Button();
             this.runOnStartupCheck = new System.Windows.Forms.CheckBox();
+            this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.trayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loginView.SuspendLayout();
             this.authView.SuspendLayout();
             this.appSettingsView.SuspendLayout();
             this.loggedUserView.SuspendLayout();
+            this.trayMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // loginBtn
@@ -206,23 +212,22 @@ namespace TapTrack
             // 
             // loggedUserView
             // 
-            this.loggedUserView.Controls.Add(this.hideAppCheck);
+            this.loggedUserView.Controls.Add(this.trayBtn);
             this.loggedUserView.Controls.Add(this.runOnStartupCheck);
             this.loggedUserView.Location = new System.Drawing.Point(0, 0);
             this.loggedUserView.Name = "loggedUserView";
             this.loggedUserView.Size = new System.Drawing.Size(251, 155);
             this.loggedUserView.TabIndex = 6;
             // 
-            // hideAppCheck
+            // trayBtn
             // 
-            this.hideAppCheck.AutoSize = true;
-            this.hideAppCheck.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(179)))), ((int)(((byte)(179)))));
-            this.hideAppCheck.Location = new System.Drawing.Point(53, 77);
-            this.hideAppCheck.Name = "hideAppCheck";
-            this.hideAppCheck.Size = new System.Drawing.Size(130, 17);
-            this.hideAppCheck.TabIndex = 1;
-            this.hideAppCheck.Text = "Hide app (In progress)";
-            this.hideAppCheck.UseVisualStyleBackColor = true;
+            this.trayBtn.Location = new System.Drawing.Point(78, 77);
+            this.trayBtn.Name = "trayBtn";
+            this.trayBtn.Size = new System.Drawing.Size(95, 23);
+            this.trayBtn.TabIndex = 1;
+            this.trayBtn.Text = "Minimize to Tray";
+            this.trayBtn.UseVisualStyleBackColor = true;
+            this.trayBtn.Click += new System.EventHandler(this.trayBtn_Click);
             // 
             // runOnStartupCheck
             // 
@@ -234,6 +239,35 @@ namespace TapTrack
             this.runOnStartupCheck.TabIndex = 0;
             this.runOnStartupCheck.Text = "Run on startup (In progress)";
             this.runOnStartupCheck.UseVisualStyleBackColor = true;
+            // 
+            // trayIcon
+            // 
+            this.trayIcon.ContextMenuStrip = this.trayMenu;
+            this.trayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("trayIcon.Icon")));
+            this.trayIcon.Text = "TapTrack";
+            this.trayIcon.Visible = true;
+            // 
+            // trayMenu
+            // 
+            this.trayMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.trayMenu.Name = "trayMenu";
+            this.trayMenu.Size = new System.Drawing.Size(181, 70);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // TapTrack
             // 
@@ -260,6 +294,7 @@ namespace TapTrack
             this.appSettingsView.PerformLayout();
             this.loggedUserView.ResumeLayout(false);
             this.loggedUserView.PerformLayout();
+            this.trayMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -282,7 +317,11 @@ namespace TapTrack
         private System.Windows.Forms.LinkLabel appSettingsBtn1;
         private System.Windows.Forms.Panel loggedUserView;
         private System.Windows.Forms.CheckBox runOnStartupCheck;
-        private System.Windows.Forms.CheckBox hideAppCheck;
+        private System.Windows.Forms.ContextMenuStrip trayMenu;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        public System.Windows.Forms.NotifyIcon trayIcon;
+        private System.Windows.Forms.Button trayBtn;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
     }
 }
 
