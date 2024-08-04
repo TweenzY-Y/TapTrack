@@ -108,7 +108,7 @@ If you have "Client ID" and "Client secret" from Spotify Dev Dashboard you're re
 ## Roadmap
 
 - [ ] Add "Run on startup" feature
-- [ ] Add hiding whole app feature
+- [x] Add hiding whole app feature
 - [ ] Automate setup process
 - [ ] Add custom shortcuts
 
